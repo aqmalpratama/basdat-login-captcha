@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
             <div class="input-group">
                 <input name="submit" class="btn" type="submit">
             </div>
-            <p class="login-register-text">Anda belum punya akun? <a href="register.php">Register</a></p>
+            <p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p>
         </form>
     </div>
 </body>
