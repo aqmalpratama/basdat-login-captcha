@@ -8,8 +8,8 @@ if (isset($_POST['submit'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    $cpassword = md5($_POST['cpassword']);
+    $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
     $birthdate = $_POST['birthdate'];
     $gender = $_POST['gender'];
 
@@ -17,18 +17,18 @@ if (isset($_POST['submit'])) {
         $sql = "SELECT * FROM users WHERE email_address='$email'";
         $result = mysqli_query($connection, $sql);
         if (!$result->num_rows > 0) {
+            $pass_hash = password_hash($password, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (firstname, lastname, email_address, password, birth_date, gender)
-                VALUES ('$firstname', '$lastname', '$email', '$password', '$birthdate', '$gender')";
+                VALUES ('$firstname', '$lastname', '$email', '$pass_hash', '$birthdate', '$gender')";
             $result = mysqli_query($connection, $sql);
             if ($result) {
-                echo "<script>alert('User Registered Successfully!')</script>";
                 $firstname = "";
                 $lastname = "";
                 $email = "";
                 $password = "";
                 $cpassword = "";
                 $birthdate = "";
-                header("Location: index.php");
+                echo "<script>alert('User Registered Successfully!'); window.location.href = 'index.php';</script>";
             } else {
                 echo "<script>alert('Something went wrong!')</script>";
             }

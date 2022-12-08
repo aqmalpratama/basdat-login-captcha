@@ -12,19 +12,23 @@ if (isset($_SESSION['email_address'])) {
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $password = md5($_POST['password']);
+    $password = $_POST['password'];
 
     if ($_SESSION['captcha'] == $_POST['captcha']) {
-        $sql = "SELECT * FROM users WHERE email_address='$email' AND password='$password'";
+        $sql = "SELECT * FROM users WHERE email_address='$email'";
         $result = mysqli_query($connection, $sql);
         if ($result->num_rows > 0) {
             $row = mysqli_fetch_assoc($result);
-            $name = $row['firstname'] . " " . $row['lastname'];
-            $_SESSION['fullname'] = $name;
-            $_SESSION['email_address'] = $row['email_address'];
-            header("Location: success_login.php");
+            if (password_verify($password, $row['password'])) {
+                $name = $row['firstname'] . " " . $row['lastname'];
+                $_SESSION['fullname'] = $name;
+                $_SESSION['email_address'] = $row['email_address'];
+                header("Location: success_login.php");
+            } else {
+                echo "<script>alert('Invalid Password!')</script>";
+            }
         } else {
-            echo "<script>alert('Invalid Email or Password!')</script>";
+            echo "<script>alert('Invalid Email Address!')</script>";
         }
     } else {
         echo "<script>alert('Invalid Captcha!')</script>";
