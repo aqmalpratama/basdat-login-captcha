@@ -66,11 +66,12 @@ if (isset($_POST['submit'])) {
                 <input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
             </div>
             <img src="generate_captcha.php" alt=""><br>
+            <input type="hidden" value="<?= $_SESSION['captcha'] ?>">
             <div class="input-group">
                 <input type="text" placeholder="Captcha" name="captcha" value="" required>
             </div>
             <div class="input-group">
-                <input name="submit" class="btn" type="submit">
+                <input name="submit" class="btn" type="submit" value="submit">
             </div>
             <p class="login-register-text">Don't have an account? <a href="register.php">Register Here</a>.</p>
         </form>

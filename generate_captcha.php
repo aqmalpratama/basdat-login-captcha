@@ -1,6 +1,6 @@
 <?php
 session_start();
-$captcha = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 6);
+$captcha = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 6);
 $_SESSION['captcha'] = $captcha;
 
 $pic = imagecreate(80, 30);
